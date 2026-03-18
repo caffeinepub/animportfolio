@@ -1,0 +1,418 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === FONTS === */
+@font-face {
+  font-family: "BricolageGrotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/assets/fonts/Satoshi.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "InstrumentSerif";
+  src: url("/assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrainsMono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* === DESIGN TOKENS === */
+:root {
+  /* Deep Space Dark Theme */
+  --background: 0.08 0.02 290;
+  --foreground: 0.97 0.01 290;
+  --card: 0.12 0.03 290;
+  --card-foreground: 0.97 0.01 290;
+  --popover: 0.12 0.03 290;
+  --popover-foreground: 0.97 0.01 290;
+  --primary: 0.62 0.28 290;
+  --primary-foreground: 0.97 0.01 290;
+  --secondary: 0.65 0.28 345;
+  --secondary-foreground: 0.97 0.01 290;
+  --muted: 0.18 0.03 290;
+  --muted-foreground: 0.6 0.05 290;
+  --accent: 0.78 0.18 195;
+  --accent-foreground: 0.08 0.02 290;
+  --destructive: 0.55 0.25 25;
+  --destructive-foreground: 0.97 0.01 290;
+  --border: 0.22 0.06 290;
+  --input: 0.15 0.03 290;
+  --ring: 0.62 0.28 290;
+  --radius: 0.75rem;
+  --chart-1: 0.62 0.28 290;
+  --chart-2: 0.78 0.18 195;
+  --chart-3: 0.65 0.28 345;
+  --chart-4: 0.72 0.22 140;
+  --chart-5: 0.7 0.22 60;
+  --sidebar: 0.1 0.02 290;
+  --sidebar-foreground: 0.97 0.01 290;
+  --sidebar-primary: 0.62 0.28 290;
+  --sidebar-primary-foreground: 0.97 0.01 290;
+  --sidebar-accent: 0.16 0.04 290;
+  --sidebar-accent-foreground: 0.97 0.01 290;
+  --sidebar-border: 0.22 0.06 290;
+  --sidebar-ring: 0.62 0.28 290;
+}
+
+/* === BASE === */
+* {
+  @apply border-border;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-family: "Satoshi", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* === KEYFRAMES === */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-15px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(-8px) rotate(-1deg);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 20px oklch(0.62 0.28 290 / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px oklch(0.62 0.28 290 / 0.8), 0 0 80px
+      oklch(0.62 0.28 290 / 0.3);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    top: -5%;
+  }
+  100% {
+    top: 105%;
+  }
+}
+
+@keyframes neon-flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow: 0 0 10px oklch(0.78 0.18 195), 0 0 20px oklch(0.78 0.18 195), 0
+      0 40px oklch(0.78 0.18 195);
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes particle-drift {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-30px) translateX(15px) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* === UTILITY CLASSES === */
+.glass {
+  background: oklch(0.12 0.03 290 / 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid oklch(0.35 0.08 290 / 0.3);
+}
+
+.glass-strong {
+  background: oklch(0.14 0.04 290 / 0.85);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid oklch(0.38 0.1 290 / 0.4);
+}
+
+.glass-light {
+  background: oklch(0.16 0.04 290 / 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid oklch(0.3 0.06 290 / 0.2);
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px oklch(0.62 0.28 290 / 0.4), 0 0 60px
+    oklch(0.62 0.28 290 / 0.15);
+}
+
+.glow-accent {
+  box-shadow: 0 0 20px oklch(0.78 0.18 195 / 0.4), 0 0 60px
+    oklch(0.78 0.18 195 / 0.15);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 20px oklch(0.65 0.28 345 / 0.4), 0 0 60px
+    oklch(0.65 0.28 345 / 0.15);
+}
+
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    oklch(0.78 0.22 290) 0%,
+    oklch(0.78 0.18 195) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-pink {
+  background: linear-gradient(
+    135deg,
+    oklch(0.75 0.25 290) 0%,
+    oklch(0.68 0.28 345) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-tri {
+  background: linear-gradient(
+    135deg,
+    oklch(0.78 0.22 290) 0%,
+    oklch(0.78 0.18 195) 50%,
+    oklch(0.68 0.28 345) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    oklch(0.62 0.28 290),
+    oklch(0.78 0.18 195),
+    oklch(0.65 0.28 345)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.mesh-bg {
+  background: radial-gradient(
+      ellipse at 15% 40%,
+      oklch(0.62 0.28 290 / 0.18) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 85% 15%,
+      oklch(0.78 0.18 195 / 0.12) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 55% 85%,
+      oklch(0.65 0.28 345 / 0.12) 0%,
+      transparent 55%
+    ), oklch(0.08 0.02 290);
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+.float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+.glow-animation {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+.spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+.neon-flicker {
+  animation: neon-flicker 4s infinite;
+}
+
+.shimmer-bg {
+  background: linear-gradient(
+    90deg,
+    oklch(0.15 0.03 290) 25%,
+    oklch(0.22 0.06 290) 37%,
+    oklch(0.15 0.03 290) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+.gradient-animated {
+  background: linear-gradient(
+    270deg,
+    oklch(0.62 0.28 290),
+    oklch(0.78 0.18 195),
+    oklch(0.65 0.28 345),
+    oklch(0.62 0.28 290)
+  );
+  background-size: 300% 300%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.08 0.02 290);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.3 0.1 290);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.62 0.28 290);
+}
+
+::selection {
+  background: oklch(0.62 0.28 290 / 0.35);
+  color: oklch(0.97 0.01 290);
+}
+
+/* Focus ring */
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+}
+
+/* Heading font */
+.font-heading {
+  font-family: "BricolageGrotesque", system-ui, sans-serif;
+}
+.font-body {
+  font-family: "Satoshi", system-ui, sans-serif;
+}
+.font-mono {
+  font-family: "JetBrainsMono", monospace;
+}
+.font-accent {
+  font-family: "InstrumentSerif", Georgia, serif;
+  font-style: italic;
+}
+
+/* Noise texture overlay */
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Page section spacing */
+.section {
+  @apply py-20 md:py-28;
+}
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Interactive card hover */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px oklch(0.62 0.28 290 / 0.2);
+}
